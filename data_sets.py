@@ -1,5 +1,6 @@
 from csv_parser import parse
 
+
 class DataSet:
     def __init__(self, name, file):
         self.name = name

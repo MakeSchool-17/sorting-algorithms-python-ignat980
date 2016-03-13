@@ -10,9 +10,11 @@ from sort import timed_sort
 app = Flask(__name__)
 app.config['DEBUG'] = os.environ.get('DEBUG', False)
 
+
 @app.route("/")
 def index():
     return render_template('index.html', title='')
+
 
 @app.route("/<data_set_name>")
 def data_view(data_set_name):

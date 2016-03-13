@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 VENV_DIR=./venv
-PYTHON_EXE=python3.4
+PYTHON_EXE=python3
 
 if (! command -v $PYTHON_EXE > /dev/null 2>&1); then
   echo "Please install $PYTHON_EXE before running $0"
