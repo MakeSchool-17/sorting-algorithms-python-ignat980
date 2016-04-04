@@ -1,30 +1,30 @@
 import time
 
 
-def timed_sort(list, key, algorithm='insertion'):
+def timed_sort(array, key, algorithm='insertion'):
     sort_func = globals()[algorithm]
     start_time = time.time()
-    sorted_list = sort_func(list, key=key)
+    sorted_list = sort_func(array, key=key)
     end_time = time.time()
     elapsed_time = end_time - start_time
     return (sorted_list, elapsed_time)
 
 
-def insertion(list, key=lambda item: item):
-    size = len(list)
+def insertion_sort(array, key=lambda item: item):
+    size = len(array)
     for i in range(1, size):
         for j in range(i, 0, -1):
-            compare = list[j - 1]
-            current = list[j]
+            compare = array[j - 1]
+            current = array[j]
             if key(current) < key(compare):
-                list[j] = compare
-                list[j - 1] = current
+                array[j] = compare
+                array[j - 1] = current
 
-    return list
+    return array
 
 
-def selection_sort(array):
-    """
+def selection_sort(array, key=lambda item: item):
+    """It's like a human sort
     Find the lowest value O(n)
     Put it in a new array O(1)
     Find the next highest value O(n)
@@ -33,19 +33,19 @@ def selection_sort(array):
     O(n^2)
     """
     copy = array[:]
-    sorted = []
+    returned = []
     size = len(array)
     for _ in range(size):
         smallest_index = 0
         for i in range(len(copy)):
             if copy[i] < copy[smallest_index]:
                 smallest_index = i
-        sorted.append(copy[smallest_index])
+        returned.append(copy[smallest_index])
         del copy[smallest_index]
-    return sorted
+    return returned
 
 
-def insertion_sort(array):
+def igsertion_sort(array):
     """A bit faster insertion sort
 
     This variation decides where the index should be before inserting.
@@ -86,3 +86,26 @@ def insertion_sort(array):
             else:
                 sort.insert(idx, val)
     return sort
+
+
+def merge_sort(array):
+    """Your standard merge sort
+    O(n*log(n))
+    """
+    result = []
+    if len(array) < 10:
+        return sorted(array)  # Makes it faster
+    middle = len(array) // 2
+    right = merge_sort(array[:middle])
+    left = merge_sort(array[middle:])
+    i = j = 0
+    while i < len(right) and j < len(left):
+        if right[i] > left[j]:
+            result.append(left[j])
+            j += 1
+        else:
+            result.append(right[i])
+            i += 1
+    result += right[i:]
+    result += left[j:]
+    return result
